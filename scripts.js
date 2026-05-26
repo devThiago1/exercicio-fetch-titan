@@ -27,11 +27,13 @@ function fetchBtc() {
   fetch("https://blockchain.info/ticker")
     .then((response) => response.json())
     .then((data) => {
+      localStorage.setItem("lastBtcPrice", data.USD.last)
+
       btcElement.innerText = `Preço do Bitcoin em USD: $${data.USD.last.toFixed(2)}`
     })
     .catch((error) => {
       console.error("Erro ao buscar o preço do Bitcoin:", error)
     })
 }
-
+setInterval(fetchBtc, 5000)
 fetchBtc()
